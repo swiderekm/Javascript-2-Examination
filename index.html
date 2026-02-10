@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Tamagotchi 🐾</h1>
+
+        <div class="create-pet">
+            <input type="text" id="petName" placeholder="Pet name">
+            <select id="animalType">
+                <option value="cat">Cat</option>
+                <option value="dog">Dog</option>
+                <option value="rabbit">Rabbit</option>
+                <option value="hamster">Hamster</option>
+            </select>
+            <button id="randomNameBtn">Random name</button>
+            <button id="createPetBtn">Create pet</button>
+        </div>
+
+        <div class="pet-card hidden">
+            <h2 id="petTitle"></h2>
+            <img id="petImage" src="" alt="pet image">
+
+            <p>Energy: <span id="energy"><div class="bar"></div></span></p>
+            <p>Fullness: <span id="fullness"><div class="bar"></div></span></p>
+            <p>Happiness: <span id="happiness"><div class="bar"></div></span></p>
+
+            <div class="actions">
+                <button id="napBtn">Nap</button>
+                <button id="playBtn">Play</button>
+                <button id="eatBtn">Eat</button>
+            </div>
+        </div>
+
+        <h3>Activity log</h3>
+        <div id="log"></div>
+</body>
+</html>
