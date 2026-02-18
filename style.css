@@ -85,7 +85,7 @@ h1 {
 
 .pet-card {
     max-width: 420px;
-    margin: 0 auto 40px;
+    margin: 0 10px 10px;
     padding: 32px 28px;
     background: white;
     border-radius: 24px;
@@ -95,10 +95,6 @@ h1 {
     transition: transform 0.25s ease;
 }
 
-.pet-card:not(.hidden):hover {
-    transform: translateY(-6px);
-}
-
 .pet-card h2 {
     font-size: 2.1rem;
     margin-bottom: 20px;
@@ -106,67 +102,47 @@ h1 {
     font-weight: 700;
 }
 
-#petImage {
-    width: 180px;
-    height: 180px;
-    object-fit: contain;
-    margin: 10px auto 30px;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
-    transition: transform 0.3s ease;
-}
-
-.pet-card:hover #petImage {
-    transform: scale(1.08) translateY(-4px);
-}
-
 .pet-card p {
-    font-size: 1.25rem;
-    margin: 14px 0;
-    font-weight: 500;
-}
-
-.pet-card span {
-    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    font-weight: 600;
     color: #4a4a8c;
 }
 
-.pet-card p {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-}
-
-.pet-card p::after {
-    content: "";
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    height: 8px;
-    border-radius: 4px;
-    background: #e0e0ff;
+.progress {
     width: 100%;
-    z-index: 1;
+    height: 14px;
+    background: #e0e0ff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 
-.pet-card span::after {
-    content: "";
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    height: 8px;
-    border-radius: 4px;
-    background: linear-gradient(to right, #7b68ee, #a29bfe);
+.bar {
+    height: 100%;
     width: 50%;
-    z-index: 2;
-    transition: width 0.5s ease;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+#energy {
+    background: linear-gradient(to right, #ff9f1c, #ffbf69);
+}
+
+#fullness {
+    background: linear-gradient(to right, #2ecc71, #6ee7b7);
+}
+
+#happiness {
+    background: linear-gradient(to right, #ff4d6d, #ff8fab);
 }
 
 .actions {
     display: flex;
     justify-content: center;
     gap: 16px;
-    margin-top: 32px;
+    margin-top: 28px;
     flex-wrap: wrap;
 }
 
@@ -182,32 +158,19 @@ h1 {
 }
 
 #napBtn {
-    background: #a3bffa;
-    color: #2c3e50;
-}
-
-#napBtn:hover {
-    background: #91a8e8;
-    transform: translateY(-3px);
+    background: linear-gradient(to right, #ff9f1c, #ffbf69);
 }
 
 #playBtn {
-    background: #ffd166;
-    color: #2d2d44;
-}
-
-#playBtn:hover {
-    background: #ffca3a;
-    transform: translateY(-3px);
+    background: linear-gradient(to right, #ff4d6d, #ff8fab);
 }
 
 #eatBtn {
-    background: #ff9f1c;
+    background: linear-gradient(to right, #2ecc71, #6ee7b7);
     color: white;
 }
 
-#eatBtn:hover {
-    background: #ff8c00;
+.actions button:hover {
     transform: translateY(-3px);
 }
 
@@ -215,7 +178,6 @@ h3 {
     text-align: center;
     margin: 40px 0 20px;
     color: #4a4a8c;
-    font-size: 1.6rem;
 }
 
 #log {
@@ -228,45 +190,71 @@ h3 {
     max-height: 360px;
     overflow-y: auto;
     border: 1px dashed #d0d0ff;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 #log p {
-    margin: 8px 0;
-    padding-left: 12px;
-    border-left: 4px solid #c3b1ff;
-    opacity: 0.9;
-}
-
-#log p:nth-child(odd) {
-    border-left-color: #a29bfe;
-}
-
-
-#log::-webkit-scrollbar {
-    width: 8px;
-}
-
-#log::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-#log::-webkit-scrollbar-thumb {
-    background: #a29bfe;
-    border-radius: 10px;
-}
-
-#log::-webkit-scrollbar-thumb:hover {
-    background: #7b68ee;
+    margin: 6px 0;
+    padding-left: 10px;
+    border-left: 4px solid #a29bfe;
 }
 
 .pet-card.hidden {
     display: none !important;
 }
 
-.pet-card:not(.hidden):hover {
-    transform: translateY(-6px);
+#petsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
+
+.playBtn {
+    background: linear-gradient(to right, #ff4d6d, #ff8fab);
+    color: white;
+}
+
+.eatBtn {
+    background: linear-gradient(to right, #ff9f1c, #ffbf69);
+    color: white;
+}
+
+.napBtn {
+    background: linear-gradient(to right, #2ecc71, #6ee7b7);
+    color: white;
+}
+
+.progress {
+    width: 100%;
+    height: 14px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.bar.energy {
+    background: linear-gradient(to right, #ff9f1c, #ffbf69);
+}
+
+.bar.fullness {
+    background: linear-gradient(to right, #2ecc71, #6ee7b7);
+}
+
+.bar.happiness {
+    background: linear-gradient(to right, #ff4d6d, #ff8fab);
+}
+
+.petImage {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin: 10px auto 30px;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
+}
+
