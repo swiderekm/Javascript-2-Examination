@@ -15,6 +15,8 @@ class Pet {
         this.happiness = 50;
 
         this.decayInterval = null;
+        this.hasSpawned = false;
+        this.currentImage = null;
     }
 
     nap() {
@@ -23,7 +25,6 @@ class Pet {
         this.happiness -= 10;
         this.limitStats();
         addLog(`You took a nap with ${this.name} (+40⚡ -10🥞 -10💕)`);
-
         this.checkAlive();
     }
 
@@ -33,7 +34,6 @@ class Pet {
         this.happiness += 30;
         this.limitStats();
         addLog(`You played with ${this.name} (-10⚡ -10🥞 +30💕)`);
-
         this.checkAlive();
     }
 
@@ -43,7 +43,6 @@ class Pet {
         this.happiness += 5;
         this.limitStats();
         addLog(`You fed ${this.name} (-15⚡ +30🥞 +5💕)`);
-
         this.checkAlive();
     }
 
@@ -67,9 +66,9 @@ class Pet {
     }
 
     statDecay() {
-        this.energy -= 1;
-        this.fullness -= 1;
-        this.happiness -= 1;
+        this.energy -= 10;
+        this.fullness -= 10;
+        this.happiness -= 10;
         this.limitStats();
     }
 
@@ -87,7 +86,7 @@ class Pet {
             if (this.energy <= 0 || this.fullness <= 0 || this.happiness <= 0) {
                 this.removePet();
             }
-        }, 1000);
+        }, 10000);
     }
 
     removePet() {
@@ -123,17 +122,32 @@ function updateUI() {
     petsContainer.innerHTML = "";
 
     pets.forEach((pet, index) => {
-        const card = document.createElement("div");
-        card.classList.add("pet-card");
+    const card = document.createElement("div");
+    card.classList.add("pet-card");
+
+    if (!pet.hasSpawned) {
+        card.classList.add("spawn");
+        pet.hasSpawned = true;
+    }
 
         const title = document.createElement("h2");
         title.innerHTML = `${pet.name} the ${pet.animalType}`;
-        card.appendChild(title);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = "🧺";
+        deleteBtn.classList.add("deleteBtn");
+        deleteBtn.onclick = () => {
+            pet.removePet()
+            updateUI();
+        };
+        card.append(deleteBtn, title);
 
         const img = document.createElement("img");
-        img.src = `images/${pet.animalType}.png`;
-        img.classList.add("petImage")
-        card.appendChild(img);
+        img.src = pet.currentImage 
+            ? `images/${pet.currentImage}` 
+            : `images/${pet.animalType}.png`;
+        img.classList.add("petImage");
+        card.append(img);
 
         const stats = [
             { name: "Energy⚡", value: pet.energy, colorId: "energy" },
@@ -144,7 +158,7 @@ function updateUI() {
         stats.forEach(stat => {
             const p = document.createElement("p");
             p.innerHTML = `${stat.name}:`;
-            card.appendChild(p);
+            card.append(p);
 
             const progress = document.createElement("div");
             progress.classList.add("progress");
@@ -154,68 +168,93 @@ function updateUI() {
             bar.id = `${stat.colorId}-${index}`;
             bar.style.width = `${Math.max(0, Math.min(100, stat.value))}%`;
 
-            progress.appendChild(bar);
-            card.appendChild(progress);
+            progress.append(bar);
+            card.append(progress);
         });
+
 
 
         const actions = document.createElement("div");
         actions.classList.add("actions");
 
+
+
         const napBtn = document.createElement("button");
         napBtn.innerHTML = "Nap";
-        napBtn.classList.add("napBtn")
+        napBtn.classList.add("napBtn");
+        actions.append(napBtn);
         napBtn.onclick = () => {
             pet.nap();
+            pet.currentImage = `${pet.animalType}-sleep.png`;
+
+            setTimeout(() => {
+                pet.currentImage = null;
+                updateUI();
+            }, 2000);
+
             updateUI();
         };
 
         const playBtn = document.createElement("button");
         playBtn.innerHTML = "Play";
-        playBtn.classList.add("playBtn")
+        playBtn.classList.add("playBtn");
+        actions.append(playBtn);
         playBtn.onclick = () => {
             pet.play();
+            pet.currentImage = `${pet.animalType}-pet.png`;
+
+            setTimeout(() => {
+                pet.currentImage = null;
+                updateUI();
+            }, 2000);
+
             updateUI();
         };
 
         const eatBtn = document.createElement("button");
         eatBtn.innerHTML = "Eat";
-        eatBtn.classList.add("eatBtn")
+        eatBtn.classList.add("eatBtn");
+        actions.append(eatBtn);
         eatBtn.onclick = () => {
             pet.eat();
+            pet.currentImage = `${pet.animalType}-eat.png`;
+
+            setTimeout(() => {
+                pet.currentImage = null;
+                updateUI();
+            }, 2000);
+
             updateUI();
         };
 
-        actions.appendChild(napBtn);
-        actions.appendChild(playBtn);
-        actions.appendChild(eatBtn);
 
-        card.appendChild(actions);
-        petsContainer.appendChild(card);
 
-        pet.startDecay(index);
+        card.append(actions);
+        petsContainer.append(card);
+
+        pet.startDecay();
     });
 }
 
 function addLog(message) {
     const p = document.createElement("p");
     p.innerHTML = message;
-    logEl.appendChild(p);
+    logEl.append(p);
 }
 
 createPetBtn.addEventListener("click", () => {
     const name = petNameInput.value.trim() || "Unnamed";
     const type = animalTypeSelect.value;
 
+    if (pets.length >= 4) {
+        alert("Max pets per household is 4");
+        return
+    }
+
     const newPet = new Pet(name, type);
     pets.push(newPet);
 
     addLog(`${newPet.name} the ${newPet.animalType} has joined the household 🥳`);
-
-    if (pets.length > 4) {
-        newPet.removePet();
-        alert("Max pets per household is 4")
-    }
 
     updateUI();
 });

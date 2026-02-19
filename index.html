@@ -4,54 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tamagotchi 🐾</title>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <h1>Tamagotchi 🐾</h1>
-    <div class="create-pet">
-        <input type="text" id="petName" placeholder="Pet name">
 
-        <select id="animalType">
-            <option value="cat">Cat</option>
-            <option value="dog">Dog</option>
-            <option value="rabbit">Rabbit</option>
-            <option value="hamster">Hamster</option>
-        </select>
+<div class="create-pet">
+    <input type="text" id="petName" placeholder="Pet name">
 
-        <button id="randomNameBtn">Random name</button>
-        <button id="createPetBtn">Create pet</button>
+    <select id="animalType">
+        <option value="cat">Cat</option>
+        <option value="dog">Dog</option>
+        <option value="rabbit">Rabbit</option>
+        <option value="hamster">Hamster</option>
+    </select>
 
-    </div>
-    <div class="pet-card hidden">
-        <h2 id="petTitle"></h2>
-        <img id="petImage" src="" alt="pet image">
+    <button id="randomNameBtn">Random name</button>
+    <button id="createPetBtn">Create pet</button>
+</div>
 
-    <p>Energy⚡:</p>
-    <div class="progress">
-        <div id="energy" class="bar"></div>
-    </div>
+<div id="petsContainer"></div>
 
-    <p>Fullness🍖:</p>
-    <div class="progress">
-        <div id="fullness" class="bar"></div>
-    </div>
+<h3>Activity log</h3>
+<div id="log"></div>
 
-    <p>Happiness🥰:</p>
-    <div class="progress">
-        <div id="happiness" class="bar"></div>
-    </div>
-    
-        <div class="actions">
-            <button id="napBtn">Nap</button>
-            <button id="playBtn">Play</button>
-            <button id="eatBtn">Eat</button>
-        </div>
-    </div>
-    <div id="petsContainer"></div>
-
-    <h3>Activity log</h3>
-    <div id="log"></div>
 </body>
 </html>
